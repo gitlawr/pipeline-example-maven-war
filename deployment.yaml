@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    field.cattle.io/projectId: ${CICD_PROJECT_ID}
+  labels:
+    field.cattle.io/projectId: ${CICD_PROJECT_NAME}
+  name: maven-example-${CICD_PROJECT_NAME}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: maven-example-service
+  namespace: maven-example-${CICD_PROJECT_NAME}
+spec:
+  selector:
+    app: maven-example
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-example
+  namespace: maven-example-${CICD_PROJECT_NAME}
+  labels:
+    app: maven-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maven-example
+  template:
+    metadata:
+      labels:
+        app: maven-example
+    spec:
+      containers:
+      - name: maven
+        image: ${CICD_EMBED_REGISTRY}/project/maven-example:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 8080

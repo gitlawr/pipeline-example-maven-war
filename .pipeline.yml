@@ -1,0 +1,24 @@
+name: maven-example
+stages:
+- name: clone
+  steps:
+  - sourceCodeConfig:
+      branchCondition: all
+- name: build
+  steps:
+  - runScriptConfig:
+      image: maven
+      isShell: true
+      shellScript: |-
+        mvn dependency:go-offline
+        mvn integration-test
+- name: publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: docker-registry:5000/project/maven-example:${CICD_EXECUTION_SEQUENCE}
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
