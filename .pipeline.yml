@@ -14,10 +14,10 @@ stages:
         mvn integration-test
 - name: publish
   steps:
-  - publishImageConfig:
+  - buildImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: docker-registry:5000/project/maven-example:${CICD_EXECUTION_SEQUENCE}
+      tag: project/maven-example:${CICD_EXECUTION_SEQUENCE}
 - name: deploy
   steps:
   - applyYamlConfig:
