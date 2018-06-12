@@ -17,10 +17,10 @@
 	<description>Spring Boot War Sample</description>
 	<dependencies>
 		<!-- Compile -->
-		<dependency>
+		<!-- dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<!-- To build an executable war use one of the profiles below -->
 			<groupId>javax.servlet</groupId>
@@ -58,7 +58,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
+	<!--profiles>
 		<profile>
 			<id>tomcat</id>
 			<dependencies>
@@ -89,5 +89,5 @@
 				</dependency>
 			</dependencies>
 		</profile>
-	</profiles>
+	</profiles-->
 </project>
