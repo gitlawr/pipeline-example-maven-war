@@ -14,7 +14,7 @@ stages:
         mvn integration-test
 - name: publish
   steps:
-  - buildImageConfig:
+  - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: project/maven-example:${CICD_EXECUTION_SEQUENCE}
